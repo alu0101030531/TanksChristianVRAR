@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -21,6 +23,8 @@ public class TankShooting : MonoBehaviour
     private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
     private bool m_Fired;                       // Whether or not the shell has been launched with this button press.                
 
+    [Header("Action")] 
+    public InputActionReference ShotAction;
 
     private void OnEnable()
     {
@@ -55,7 +59,7 @@ public class TankShooting : MonoBehaviour
             Fire();
         }
         // Otherwise, if the fire button has just started being pressed...
-        else if (CrossPlatformInputManager.GetButtonDown(m_FireButton))
+        else if (CrossPlatformInputManager.GetButtonDown(m_FireButton) || ShotAction.action.WasPressedThisFrame())
         {
             // ... reset the fired flag and reset the launch force.
             m_Fired = false;
@@ -66,7 +70,7 @@ public class TankShooting : MonoBehaviour
             m_ShootingAudio.Play();
         }
         // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
-        else if (CrossPlatformInputManager.GetButton(m_FireButton) && !m_Fired)
+        else if (CrossPlatformInputManager.GetButton(m_FireButton) || ShotAction.action.ReadValue<float>() > 0 && !m_Fired)
         {
             // Increment the launch force and update the slider.
             m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
@@ -74,7 +78,7 @@ public class TankShooting : MonoBehaviour
             m_AimSlider.value = m_CurrentLaunchForce;
         }
         // Otherwise, if the fire button is released and the shell hasn't been launched yet...
-        else if (CrossPlatformInputManager.GetButtonUp(m_FireButton) && !m_Fired)
+        else if (CrossPlatformInputManager.GetButtonUp(m_FireButton) || ShotAction.action.WasReleasedThisFrame() && !m_Fired)
         {
             // ... launch the shell.
             Fire();
@@ -88,6 +92,7 @@ public class TankShooting : MonoBehaviour
 
         // Set the fired flag so only Fire is only called once.
         m_Fired = true;
+        
 
         // Create an instance of the shell and store a reference to it's rigidbody.
         Rigidbody shellInstance =

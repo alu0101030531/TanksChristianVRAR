@@ -31,7 +31,7 @@ public class TankMovement : MonoBehaviour
     private void Awake ()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        //moveAction.performed += OnMove();
+        
     }
 
     private Action<InputAction.CallbackContext> OnMove()
@@ -91,8 +91,8 @@ public class TankMovement : MonoBehaviour
     {
         // Store the player's input and make sure the audio for the engine is playing.
         // Store the value of both input axes.
-        m_MovementInputValue = moveAction.action.ReadValue<Vector2>().x;
-        m_TurnInputValue = moveAction.action.ReadValue<Vector2>().y;
+        m_MovementInputValue = moveAction.action.ReadValue<Vector2>().y;
+        m_TurnInputValue = moveAction.action.ReadValue<Vector2>().x;
         
 
         EngineAudio ();

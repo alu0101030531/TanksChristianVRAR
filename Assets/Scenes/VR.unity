@@ -845,6 +845,8 @@ MonoBehaviour:
     m_Wins: 0
     moveAction: {fileID: 8275859971367427353, guid: 0be0028c24f2a4c14a96b6aa39055933,
       type: 3}
+    shotAction: {fileID: -3599823989380923159, guid: 0be0028c24f2a4c14a96b6aa39055933,
+      type: 3}
   - m_PlayerColor: {r: 1, g: 0.0047169924, b: 0.10227044, a: 0}
     m_SpawnPoint: {fileID: 1284619590}
     prefab: {fileID: 222204346857271283, guid: 44d77a59942c04f459ee2eda340451ed, type: 3}
@@ -853,6 +855,8 @@ MonoBehaviour:
     m_Instance: {fileID: 0}
     m_Wins: 0
     moveAction: {fileID: 8275859971367427353, guid: 0be0028c24f2a4c14a96b6aa39055933,
+      type: 3}
+    shotAction: {fileID: -3599823989380923159, guid: 0be0028c24f2a4c14a96b6aa39055933,
       type: 3}
   vrMode: 1
   playerId: 0
